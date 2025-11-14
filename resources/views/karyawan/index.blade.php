@@ -42,5 +42,17 @@
             @endforeach
         </tbody>
     </table>
+    <form action="{{ route('karyawan.import.excel') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+
+        <div class="mb-2">
+            <input type="file" name="file" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Import Excel
+        </button>
+    </form>
+
 </div>
 @endsection

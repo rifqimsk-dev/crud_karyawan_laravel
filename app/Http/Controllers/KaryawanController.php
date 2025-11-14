@@ -6,6 +6,7 @@ use PDF;
 use App\Models\Karyawan;
 use Illuminate\Http\Request;
 use App\Exports\KaryawanExport;
+use App\Imports\KaryawanImport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class KaryawanController extends Controller
@@ -105,5 +106,15 @@ class KaryawanController extends Controller
     public function exportExcel()
     {
         return Excel::download(new KaryawanExport, 'data_karyawan.xlsx');
+    }
+
+    public function importExcel(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv|max:5120'
+        ]);
+        Excel::import(new KaryawanImport, $request->file('file'));
+
+        return redirect()->route('karyawan.index')->with('success', 'Data berhasil di import');
     }
 }
