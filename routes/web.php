@@ -35,6 +35,7 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function () {
     Route::resource('karyawan', KaryawanController::class);
     Route::get('karyawan/export/pdf', [KaryawanController::class, 'exportPdf'])->name('karyawan.export.pdf');
+    Route::get('karyawan/export/excel', [KaryawanController::class, 'exportExcel'])->name('karyawan.export.excel');
 });
 
 // ---------- CAPTCHA ----------

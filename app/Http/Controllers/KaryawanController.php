@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use PDF;
 use App\Models\Karyawan;
 use Illuminate\Http\Request;
-use PDF;
+use App\Exports\KaryawanExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class KaryawanController extends Controller
 {
@@ -98,5 +100,10 @@ class KaryawanController extends Controller
         ->setPaper('a4','potrait');
 
         return $pdf->stream('data_karyawan.pdf');
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new KaryawanExport, 'data_karyawan.xlsx');
     }
 }
