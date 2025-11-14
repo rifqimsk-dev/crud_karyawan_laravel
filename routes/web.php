@@ -1,8 +1,9 @@
 <?php
 
+use Mews\Captcha\Facades\Captcha;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\KaryawanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,4 +30,8 @@ Route::get('/', function () {
 
 Route::middleware('auth')->group(function () {
     Route::resource('karyawan', KaryawanController::class);
+});
+
+Route::get('/reload-captcha', function () {
+    return response()->json(['captcha' => Captcha::img()]);
 });
