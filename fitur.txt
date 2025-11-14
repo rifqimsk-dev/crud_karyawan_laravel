@@ -1,6 +1,22 @@
 1. User Authentication
+- migrate users
+- make controller AuthController
+
 2. CRUD
-3. Captcha
+3. Captcha 
+- composer require mews/captcha  
+- php artisan vendor:publish --provider="Mews\Captcha\CaptchaServiceProvider"
+
 4. Email SMTP
-5. Export PDF / Excel
-6. Import Excel
+- php artisan make:mail TestEmail
+
+5. Download PDF 
+- composer require barryvdh/laravel-dompdf
+
+6. Import Excel 
+- composer require maatwebsite/excel
+- php artisan make:export KaryawanExport --model=Karyawan  
+
+7. Export Excel
+- composer require maatwebsite/excel
+- php artisan make:import KaryawanImport --model=Karyawan  
