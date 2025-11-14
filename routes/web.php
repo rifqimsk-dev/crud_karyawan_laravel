@@ -1,6 +1,8 @@
 <?php
 
+use App\Mail\TestEmail;
 use Mews\Captcha\Facades\Captcha;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\KaryawanController;
@@ -34,4 +36,14 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/reload-captcha', function () {
     return response()->json(['captcha' => Captcha::img()]);
+});
+
+Route::get('/kirim-email', function () {
+    $data = [
+        'message' => 'Ini adalah email percobaan.'
+    ];
+
+    Mail::to('surisalbi303@gmail.com')->send(new TestEmail($data));
+
+    return "Email berhasil dikirim!";
 });
