@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Karyawan;
+use Illuminate\Http\Request;
+use PDF;
 
 class KaryawanController extends Controller
 {
@@ -88,5 +89,14 @@ class KaryawanController extends Controller
 
         $karyawan->delete();
         return redirect()->route('karyawan.index')->with('success', 'Data berhasil dihapus');
+    }
+
+    public function exportPdf()
+    {
+        $karyawan = Karyawan::all();
+        $pdf = PDF::loadView('karyawan.download', compact('karyawan'))
+        ->setPaper('a4','potrait');
+
+        return $pdf->stream('data_karyawan.pdf');
     }
 }

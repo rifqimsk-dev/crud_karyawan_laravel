@@ -18,6 +18,7 @@ use App\Http\Controllers\KaryawanController;
 |
 */
 
+// ---------- AUTH ----------
 Route::get('/register', [AuthController::class, 'registerForm'])->name('register.form');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 
@@ -25,20 +26,27 @@ Route::get('/login', [AuthController::class, 'loginForm'])->name('login.form');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-
+// ---------- REDIRECT ROOT ----------
 Route::get('/', function () {
     return redirect()->route('karyawan.index');
 });
 
+// ---------- PROTECTED ROUTES ----------
 Route::middleware('auth')->group(function () {
     Route::resource('karyawan', KaryawanController::class);
+    Route::get('karyawan/export/pdf', [KaryawanController::class, 'exportPdf'])->name('karyawan.export.pdf');
 });
 
+// ---------- CAPTCHA ----------
 Route::get('/reload-captcha', function () {
-    return response()->json(['captcha' => Captcha::img()]);
+    return response()->json([
+        'captcha' => Captcha::img()
+    ]);
 });
 
+// ---------- TEST EMAIL ----------
 Route::get('/kirim-email', function () {
+
     $data = [
         'message' => 'Ini adalah email percobaan.'
     ];

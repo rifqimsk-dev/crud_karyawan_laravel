@@ -4,6 +4,9 @@
 <div class="container mt-4">
     <h2>Data Karyawan</h2>
     <a href="{{ route('karyawan.create') }}" class="btn btn-primary mb-3">+ Tambah Karyawan</a>
+    <a href="{{ route('karyawan.export.pdf') }}" target="_blank" class="btn btn-danger mb-3">
+        Export PDF
+    </a>
 
     @if ($message = Session::get('success'))
         <div class="alert alert-success">{{ $message }}</div>
